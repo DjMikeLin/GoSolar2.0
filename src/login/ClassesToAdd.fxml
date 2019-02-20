@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<GridPane fx:id="grid" style=" -fx-focus-color: -fx-control-inner-background; -fx-faint-focus-color: -fx-control-inner-background; " prefHeight="400" prefWidth="950" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="login.ClassesController">
+   <columnConstraints>
+      <ColumnConstraints percentWidth="11" />
+      <ColumnConstraints percentWidth="11" />
+      <ColumnConstraints percentWidth="11" />
+      <ColumnConstraints percentWidth="11" />
+      <ColumnConstraints percentWidth="11" />
+      <ColumnConstraints percentWidth="11" />
+      <ColumnConstraints percentWidth="11" />
+      <ColumnConstraints percentWidth="11" />
+      <ColumnConstraints percentWidth="12" /> <!-- This column for 'Add Class' buttons ?-->
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints />
+      <RowConstraints />
+   </rowConstraints>
+   <children>
+      <Label maxHeight="Infinity" maxWidth="Infinity" style=" -fx-border-color:gray; " text="Class Name" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+      <Label maxHeight="Infinity" maxWidth="Infinity" style=" -fx-border-color:gray; " text="Size of Class" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+      <Label maxHeight="Infinity" maxWidth="Infinity" style=" -fx-border-color:gray; " text="Spots Taken" GridPane.columnIndex="2" GridPane.rowIndex="0" />
+      <Label maxHeight="Infinity" maxWidth="Infinity" style=" -fx-border-color:gray; " text="Instructor" GridPane.columnIndex="3" GridPane.rowIndex="0" />
+      <Label maxHeight="Infinity" maxWidth="Infinity" style=" -fx-border-color:gray; " text="CRN" GridPane.columnIndex="4" GridPane.rowIndex="0" />
+      <Label maxHeight="Infinity" maxWidth="Infinity" style=" -fx-border-color:gray; " text="Days" GridPane.columnIndex="5" GridPane.rowIndex="0" />
+      <Label maxHeight="Infinity" maxWidth="Infinity" style=" -fx-border-color:gray; " text="Time" GridPane.columnIndex="6" GridPane.rowIndex="0" />
+      <Label maxHeight="Infinity" maxWidth="Infinity" style=" -fx-border-color:gray; " text="Subject" GridPane.columnIndex="7" GridPane.rowIndex="0" />
+      <Button maxHeight="Infinity" maxWidth="Infinity" mnemonicParsing="false" onAction="#pressBack" style=" -fx-background-color:red; -fx-border-color:black" text="Back..." GridPane.columnIndex="8" GridPane.rowIndex="0" />
+   </children>
+</GridPane>

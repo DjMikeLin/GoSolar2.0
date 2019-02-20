@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<GridPane prefHeight="400.0" prefWidth="365.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="login.StudentOptionsController">
+    <columnConstraints>
+        <ColumnConstraints />
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+    </rowConstraints>
+    <children>
+        <Label prefHeight="21.0" prefWidth="365.0" text="Choose an option..." />
+      <Button contentDisplay="CENTER" mnemonicParsing="false" onAction="#pressLookUp" prefHeight="31.0" prefWidth="366.0" text="Look-Up Classes to Add" GridPane.rowIndex="1" />
+      <Button mnemonicParsing="false" onAction="#pressAddOrDropClasses" prefHeight="31.0" prefWidth="365.0" text="Add/Drop Classes" GridPane.rowIndex="2" />
+      <Button mnemonicParsing="false" onAction="#pressAgreement" prefHeight="31.0" prefWidth="365.0" text="Registration Agreement" GridPane.rowIndex="3" />
+      <Button mnemonicParsing="false" onAction="#pressLogOff" prefHeight="31.0" prefWidth="365.0" text="Logout" GridPane.rowIndex="4" />
+      <Button mnemonicParsing="false" onAction="#pressExit" prefHeight="31.0" prefWidth="365.0" text="Exit" GridPane.rowIndex="5" />
+    </children>
+</GridPane>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<GridPane prefHeight="500" prefWidth="500" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="login.ViewUsersController">
+    <columnConstraints>
+        <ColumnConstraints />
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints percentHeight="68" />
+        <RowConstraints percentHeight="32" />
+    </rowConstraints>
+    <children>
+      <GridPane fx:id="grid" GridPane.rowIndex="0" />
+      <GridPane GridPane.rowIndex="1">
+          <columnConstraints>
+              <ColumnConstraints />
+          </columnConstraints>
+          <rowConstraints>
+              <RowConstraints percentHeight="8" />
+              <RowConstraints percentHeight="11.5" />
+              <RowConstraints percentHeight="11.5" />
+              <RowConstraints percentHeight="11.5" />
+              <RowConstraints percentHeight="11.5" />
+              <RowConstraints percentHeight="11.5" />
+              <RowConstraints percentHeight="11.5" />
+              <RowConstraints percentHeight="11.5" />
+              <RowConstraints percentHeight="11.5" />
+          </rowConstraints>
+
+          <children>
+            <Button maxHeight="Infinity" onAction="#pressAddUser" prefWidth="200" text="Add User" GridPane.halignment="LEFT" GridPane.rowIndex="0" />
+            <Button maxHeight="Infinity" onAction="#pressBack" prefWidth="200" style=" -fx-background-color:red; -fx-border-color:black " text="Back" GridPane.halignment="RIGHT" GridPane.rowIndex="0" />
+            <TextArea fx:id="userName" maxHeight="Infinity" maxWidth="Infinity" promptText="User Name" GridPane.rowIndex="1" />
+            <TextArea fx:id="password" maxHeight="Infinity" maxWidth="Infinity" promptText="User Password" GridPane.rowIndex="2" />
+            <TextArea fx:id="firstName" maxHeight="Infinity" maxWidth="Infinity" promptText="User First Name" GridPane.rowIndex="3" />
+            <TextArea fx:id="lastName" maxHeight="Infinity" maxWidth="Infinity" promptText="User Last Name" GridPane.rowIndex="4" />
+            <TextArea fx:id="email" maxHeight="Infinity" maxWidth="Infinity" promptText="User Email Address" GridPane.rowIndex="5" />
+            <TextArea fx:id="cell" maxHeight="Infinity" maxWidth="Infinity" promptText="User Cellphone#" GridPane.rowIndex="6" />
+            <TextArea fx:id="mailing" maxHeight="Infinity" maxWidth="Infinity" promptText="User Primary Address" GridPane.rowIndex="7" />
+         </children>
+      </GridPane>
+   </children>
+</GridPane>
