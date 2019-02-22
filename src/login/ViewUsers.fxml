@@ -6,6 +6,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
+<?import javafx.scene.control.ComboBox?>
 <GridPane prefHeight="500" prefWidth="500" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="login.ViewUsersController">
     <columnConstraints>
         <ColumnConstraints />
@@ -33,8 +34,19 @@
           </rowConstraints>
 
           <children>
-            <Button maxHeight="Infinity" onAction="#pressAddUser" prefWidth="200" text="Add User" GridPane.halignment="LEFT" GridPane.rowIndex="0" />
-            <Button maxHeight="Infinity" onAction="#pressBack" prefWidth="200" style=" -fx-background-color:red; -fx-border-color:black " text="Back" GridPane.halignment="RIGHT" GridPane.rowIndex="0" />
+            <GridPane GridPane.rowIndex="0">
+                <columnConstraints>
+                    <ColumnConstraints percentWidth="33.33333333333"/>
+                    <ColumnConstraints percentWidth="33.33333333333"/>
+                    <ColumnConstraints percentWidth="33.33333333333"/>
+                </columnConstraints>
+
+                <children>
+                    <Button maxHeight="Infinity" onAction="#pressAddUser" prefWidth="200" text="Add User" GridPane.columnIndex="0" />
+                    <ComboBox fx:id="userTypeComboBox" promptText="Pick a User Type" maxHeight="Infinity" prefWidth="200" GridPane.columnIndex="1"/>
+                    <Button maxHeight="Infinity" onAction="#pressBack" prefWidth="200" style=" -fx-background-color:red; -fx-border-color:black " text="Back" GridPane.columnIndex="2" />
+                </children>
+            </GridPane>
             <TextArea fx:id="userName" maxHeight="Infinity" maxWidth="Infinity" promptText="User Name" GridPane.rowIndex="1" />
             <TextArea fx:id="password" maxHeight="Infinity" maxWidth="Infinity" promptText="User Password" GridPane.rowIndex="2" />
             <TextArea fx:id="firstName" maxHeight="Infinity" maxWidth="Infinity" promptText="User First Name" GridPane.rowIndex="3" />

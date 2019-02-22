@@ -3,8 +3,6 @@ package login;
 import userGroups.Student;
 import userGroups.User;
 
-import java.sql.Time;
-
 public class Class{
     private String className, instructor, CRN, days, subject;
     private Time startTime, endTime;

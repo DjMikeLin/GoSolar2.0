@@ -35,16 +35,17 @@ public class LoginController{
             return;
         }
 
-        user = dbHandler.login(username_input.getText(), password_input.getText());
-        userType = user.getUserType();
-
+        user = dbHandler.findUser(username_input.getText(), password_input.getText());
         if(user == null){
-            User.showAlert("Wrong username or password. Please try again.");
+            User.showAlert("Wrong username and/or password. Please try again.");
             return;
         }
+
         //Figures out which .fxml file to load for what userType
         FXMLLoader loader = new FXMLLoader();
+        userType = user.getUserType();
         if(userType.equals("student")){
+            user = dbHandler.studentLogin(user);
             loader.setLocation(getClass().getResource("studentOptions.fxml"));
             loader.load();
 

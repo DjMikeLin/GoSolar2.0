@@ -28,4 +28,8 @@ public class Student extends User{
     public Schedule schedule(){
         return schedule;
     }
+
+    public void setSchedule(Schedule schedule){
+        this.schedule = schedule;
+    }
 }

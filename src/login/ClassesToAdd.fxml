@@ -9,12 +9,12 @@
 <GridPane fx:id="grid" style=" -fx-focus-color: -fx-control-inner-background; -fx-faint-focus-color: -fx-control-inner-background; " prefHeight="400" prefWidth="950" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="login.ClassesController">
    <columnConstraints>
       <ColumnConstraints percentWidth="11" />
+      <ColumnConstraints percentWidth="7" />
+      <ColumnConstraints percentWidth="7" />
       <ColumnConstraints percentWidth="11" />
       <ColumnConstraints percentWidth="11" />
       <ColumnConstraints percentWidth="11" />
-      <ColumnConstraints percentWidth="11" />
-      <ColumnConstraints percentWidth="11" />
-      <ColumnConstraints percentWidth="11" />
+      <ColumnConstraints percentWidth="19" />
       <ColumnConstraints percentWidth="11" />
       <ColumnConstraints percentWidth="12" /> <!-- This column for 'Add Class' buttons ?-->
    </columnConstraints>
@@ -24,7 +24,7 @@
    </rowConstraints>
    <children>
       <Label maxHeight="Infinity" maxWidth="Infinity" style=" -fx-border-color:gray; " text="Class Name" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-      <Label maxHeight="Infinity" maxWidth="Infinity" style=" -fx-border-color:gray; " text="Size of Class" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+      <Label maxHeight="Infinity" maxWidth="Infinity" style=" -fx-border-color:gray; " text="Size" GridPane.columnIndex="1" GridPane.rowIndex="0" />
       <Label maxHeight="Infinity" maxWidth="Infinity" style=" -fx-border-color:gray; " text="Spots Taken" GridPane.columnIndex="2" GridPane.rowIndex="0" />
       <Label maxHeight="Infinity" maxWidth="Infinity" style=" -fx-border-color:gray; " text="Instructor" GridPane.columnIndex="3" GridPane.rowIndex="0" />
       <Label maxHeight="Infinity" maxWidth="Infinity" style=" -fx-border-color:gray; " text="CRN" GridPane.columnIndex="4" GridPane.rowIndex="0" />

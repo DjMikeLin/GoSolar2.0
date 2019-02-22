@@ -53,8 +53,8 @@ public class ClassesController{
             grid.add(label6, currentCol++, currentRow);
 
             Label label7 = new Label();
-            label7.setText(dbHandler.militaryToRegularTime(aClass.getStartTime().toString()) + "-"
-                    + dbHandler.militaryToRegularTime(aClass.getEndTime().toString()));
+            label7.setText(aClass.getStartTime().militaryToRegularTime() + "-"
+                    + aClass.getEndTime().militaryToRegularTime());
             grid.add(label7, currentCol++, currentRow);
 
             Label label8 = new Label();

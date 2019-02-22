@@ -5,7 +5,6 @@ public class InputValidation{
 
     public InputValidation(){
         allErrorMessages = new StringBuffer();
-        allErrorMessages.append("");
     }
     //Returns false if userName has a invalid char or it's length is not correct. True otherwise.
     //Lowercase letters and numbers only

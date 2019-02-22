@@ -5,15 +5,12 @@ import userGroups.User;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
-public class DBHandler
-{
+public class DBHandler{
     private Connection connection;
-
-    public DBHandler()
-    {
+    //Handles reads, writes, connections. and closing connections with the sqlite database for the entire project.
+    public DBHandler(){
         try{
             connection = DriverManager.getConnection("jdbc:sqlite:database.db");
             connection.setAutoCommit(false);
@@ -23,8 +20,7 @@ public class DBHandler
         }
     }
     //Returns a list of Class from classes table
-    public List<Class> getClasses()
-    {
+    public List<Class> getClasses(){
         String query = "SELECT * FROM Classes";
         List<Class> classesData = new ArrayList();
         try{
@@ -41,7 +37,7 @@ public class DBHandler
         }
         return classesData;
     }
-    //Returns a list of classes based on the String CRNs given
+    //Returns a list of classes based on the String CRNs given. CRNS can be empty Strings
     public List<Class> getClasses(String CRN1, String CRN2, String CRN3){
         List<Class> classList = new ArrayList();
         try{
@@ -73,8 +69,8 @@ public class DBHandler
                 rs.getString("INSTRUCTOR"),
                 rs.getString("CRN"),
                 rs.getString("DAYS"),
-                getTime(rs.getString("STARTTIME")),
-                getTime(rs.getString("ENDTIME")),
+                new Time(rs.getString("STARTTIME")),
+                new Time(rs.getString("ENDTIME")),
                 rs.getString("AREA")
             );
         }
@@ -84,24 +80,20 @@ public class DBHandler
         return null;
     }
 
-    public Time getTime(String time){
-        String[] arr = time.split(":");
-        return new Time(Integer.parseInt(arr[0]), Integer.parseInt(arr[1]), Integer.parseInt(arr[2]));
-    }
-
     public List<User> getUsers(){
-        //select * from users INNER JOIN students ON students.STUDENTID = users.ID;
         ArrayList<User> data = new ArrayList();
-        getFromUserTable("SELECT * FROM Users", "Admin", data);//get data from Users table
-        return getFromUserTable("SELECT * FROM Students", "Student", data);//get data from Students table and returns all the data from all users
+        getFromUserTable("Select ID, USERNAME, PASS, USERTYPE From Users, User_Types Where User_Types.USERID = Users.ID AND User_Types.USERTYPE = 'admin';",
+                data);//get admin data from Users table
+        return getFromUserTable("select ID, USERNAME, PASS, FIRSTNAME, LASTNAME, USERTYPE from Users, Students, User_Types where students.STUDENTID = users.ID AND User_Types.USERID = USERS.ID;",
+                data);//get data from Students table and returns all the data from all users
     }
 
-    private List<User> getFromUserTable(String query, String userType, ArrayList<User> data){
+    private List<User> getFromUserTable(String query, ArrayList<User> data){
         try{
             Statement statement = connection.createStatement();
             ResultSet rs = statement.executeQuery(query);
             while(rs.next()){
-                User user = createUser(rs, userType);
+                User user = createUser(rs);
                 data.add(user);
             }
             rs.close();
@@ -113,9 +105,10 @@ public class DBHandler
         return data;
     }
     //Returns a User of a specific type
-    private User createUser(ResultSet rs, String userType){
+    private User createUser(ResultSet rs){
         try{
-            if(userType.equals("Admin")){
+            String userType = rs.getString("USERTYPE");
+            if(userType.equals("admin")){
                 return new User(
                         Integer.parseInt(rs.getString("ID")),
                         rs.getString("USERNAME"),
@@ -123,10 +116,11 @@ public class DBHandler
                         userType
                 );
             }
-            else if(userType.equals("Student")){
+            else if(userType.equals("student")){
                 return new User(
-                        Integer.parseInt(rs.getString("STUDENTID")),
-                        rs.getString("SUSERNAME"),
+                        Integer.parseInt(rs.getString("ID")),
+                        rs.getString("USERNAME"),
+                        rs.getString("PASS"),
                         rs.getString("FIRSTNAME"),
                         rs.getString("LASTNAME"),
                         userType
@@ -139,8 +133,7 @@ public class DBHandler
         return new User();//Should never reach this
     }
     //deletes a user from the corresponding table
-    public boolean deleteUser(User user)
-    {
+    public boolean deleteUser(User user){
         String sqlQuery;
 
         if(user.getUserName().equals("admin"))
@@ -160,6 +153,25 @@ public class DBHandler
             printStackOnSqlException(e);
         }
         return false;
+    }
+    //returns a List of all unique user types from the database
+    public List<String> getAllUserTypes(){
+        List<String> list = new ArrayList<>();
+        try{
+            String query = "Select Distinct USERTYPE from User_Types;";
+            Statement statement = connection.createStatement();
+            ResultSet rs = statement.executeQuery(query);
+
+            while(rs.next()){
+                list.add(rs.getString("USERTYPE"));
+            }
+            rs.close();
+            statement.close();
+        }
+        catch(SQLException e){
+            printStackOnSqlException(e);
+        }
+        return list;
     }
     //adds a user of a specific userType to its corresponding table
     public boolean addUser(User user)
@@ -230,7 +242,7 @@ public class DBHandler
             printStackOnSqlException(e);
         }
     }
-
+    //Updates SPOTSTAKEN column for one class. increments by 1 if increase is true or vice versa
     public void updateSpotsTaken(boolean increase, int IDCLASSES){
         try{
             PreparedStatement statement;
@@ -253,49 +265,58 @@ public class DBHandler
             printStackOnSqlException(e);
         }
     }
-    //Returns a User if it exists in the database; returns a null if it doesn't exist.
-    public User login(String userName, String password){
+    //Returns a User Object with userName, pass, userID, and UserType; null if userName and pass combination is not found.
+    public User findUser(String userName, String pass){
+        User user = new User(userName, pass);
         try{
+            String query = "SELECT ID, USERTYPE FROM Users, User_Types WHERE" +
+                    " Users.USERNAME = '"+ userName + "' AND" +
+                    " Users.PASS = '"+ pass +"' AND Users.ID = User_Types.USERID;";
             Statement statement = connection.createStatement();
-            //finds the unique userID for the user
-            ResultSet rs = statement.executeQuery(userIDQuery(userName));
-            int userID = Integer.parseInt(rs.getString("ID"));
-            //finds the userType for the user
-            rs = statement.executeQuery(userTypeQuery(userID));
-            String userType = rs.getString("USERTYPE");
+            ResultSet rs = statement.executeQuery(query);
+            //Returns a null if the userName and pass combination is not found in the database
+            if(!rs.isBeforeFirst())
+                return null;
 
-            if(userType.equals("student")){
-                rs = statement.executeQuery(userQuery(userType, userName, password, userID));
-                while(rs.next()){
-                    return new Student(
-                            userID,
-                            userName,
-                            password,
-                            userType,
-                            rs.getString("FIRSTNAME"),
-                            rs.getString("LASTNAME"),
-                            rs.getString("EMAIL"),
-                            rs.getString("CELL"),
-                            rs.getString("MAILING"),
-                            createTermSchedule(userName)
-                    );
-                }
+            while(rs.next()){
+                user.setId(rs.getInt("ID"));
+                user.setUserType(rs.getString("USERTYPE"));
             }
-            else if(userType.equals("admin")){
-                while(rs.next()){
-                    return new User(
-                            userID,
-                            userName,
-                            password,
-                            userType
-                    );
-                }
-            }
+            rs.close();
+            statement.close();
         }
         catch(SQLException e){
             printStackOnSqlException(e);
         }
-        return null;
+        return user;
+    }
+    //Returns a Student object based on information retrieved from database and what information was already in user
+    public Student studentLogin(User user){
+        Student student = new Student(
+                user.getId(),
+                user.getUserName(),
+                user.getPassword(),
+                user.getUserType()
+        );
+
+        try{
+            String query = "SELECT * FROM Students WHERE STUDENTID= " + "'" + user.getId() + "'";
+            Statement statement = connection.createStatement();
+
+            ResultSet rs = statement.executeQuery(query);
+            while(rs.next()){
+                student.setFirstName(rs.getString("FIRSTNAME"));
+                student.setLastName(rs.getString("LASTNAME"));
+                student.setEmail("EMAIL");
+                student.setCell("CELL");
+                student.setMailingAddress("MAILING");
+            }
+            student.setSchedule(createTermSchedule(user.getUserName()));
+        }
+        catch(SQLException e){
+            printStackOnSqlException(e);
+        }
+        return student;
     }
     //Returns the current schedule the user has from the database
     public Schedule createTermSchedule(String userName){
@@ -315,8 +336,8 @@ public class DBHandler
                         rs.getString("INSTRUCTOR"),
                         rs.getString("CRN"),
                         rs.getString("DAYS"),
-                        getTime(rs.getString("STARTTIME")),
-                        getTime(rs.getString("ENDTIME"))
+                        new Time(rs.getString("STARTTIME")),
+                        new Time(rs.getString("ENDTIME"))
                 );
 
                 schedule.updateSchedule(aClass);
@@ -331,37 +352,6 @@ public class DBHandler
         }
 
         return new Schedule();
-    }
-    //Returns a String query for a specific type of user based on userName and password
-    private String userQuery(String userType, String userName, String password, int userID){
-        if(userType.equals("admin")){
-            return  "SELECT * FROM Users WHERE USERNAME= " + "'" + userName + "'"
-                    + "AND PASS= " + "'" + password + "'";
-        }
-        else if(userType.equals("student")){
-            return  "SELECT * FROM Students WHERE STUDENTID= " + "'" + userID + "'";
-        }
-
-        return null;
-    }
-    //Returns a String Query to find the USERID from the Users table for the current user login
-    private String userIDQuery(String userName){
-        return "SELECT * FROM Users WHERE USERNAME= " + "'" + userName + "'";
-    }
-    //Returns a String Query to find the USERTYPE from the User_Types table for the current user
-    private String userTypeQuery(int userID){
-        return "SELECT USERTYPE FROM User_Types WHERE USERID= " + "'" + userID + "'";
-    }
-    //assumes militaryTime is in '00:00:00' format. returns regular time in '00:00' format
-    public String militaryToRegularTime(String militaryTime)
-    {
-        int hour = Integer.parseInt(militaryTime.substring(0, 2));
-
-        if(hour > 12){
-            hour = hour - 12;
-            return "0" + hour + militaryTime.substring(2, 5) + " pm";
-        }
-        return militaryTime.substring(0, 5) + " am";
     }
     //Closes the connection to the database
     public void closeConnection(){

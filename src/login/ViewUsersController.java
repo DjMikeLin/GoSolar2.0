@@ -1,14 +1,12 @@
 package login;
 
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.control.ContextMenu;
-import javafx.scene.control.Label;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import userGroups.User;
 
@@ -20,6 +18,9 @@ public class ViewUsersController{
     GridPane grid;
     @FXML
     TextArea userName, password, firstName, lastName, email, cell, mailing;
+    @FXML
+    ComboBox userTypeComboBox;
+
     DBHandler dbHandler;
     InputValidation inputValidation;
     private int rowIndex;
@@ -33,16 +34,17 @@ public class ViewUsersController{
         for(User user : users){
             addUserLabel(user);
         }
+        //gets unique user types from database and adds them to userTypeComboBox's items
+        userTypeComboBox.setItems(FXCollections.observableArrayList(dbHandler.getAllUserTypes()));
     }
     //On button pressed, add user to corresponding table in database
     @FXML
     public void pressAddUser(ActionEvent event) throws IOException{
-        String userType;
-
-        if(userName.getText().length() >= 5 && userName.getText().trim().substring(0, 5).equals("admin"))
-            userType = "Admin";
-        else
-            userType = "Student";
+        if(userTypeComboBox.getValue() == null){
+            User.showAlert("No User Type is selected.");
+            return;
+        }
+        String userType = userTypeComboBox.getValue().toString();//finds what userType user selected
 
         //All users need a username and password
         inputValidation.validUserName(userName.getText().trim());

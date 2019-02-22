@@ -52,8 +52,8 @@ public class AddDropController{
             grid.add(label4, currentCol++, currentRow);
 
             Label label5 = new Label();
-            label5.setText(dbHandler.militaryToRegularTime(aClass.getStartTime().toString()) + "-"
-                    + dbHandler.militaryToRegularTime(aClass.getEndTime().toString()));
+            label5.setText(aClass.getStartTime().militaryToRegularTime() + "-"
+                    + aClass.getEndTime().militaryToRegularTime());
             grid.add(label5, currentCol++, currentRow);
 
             Button removeClass = new Button();

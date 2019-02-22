@@ -23,8 +23,8 @@
    <children>
       <Label prefHeight="21.0" prefWidth="201.0" text="Enter Username:" wrapText="true" GridPane.columnIndex="1" />
       <Label prefHeight="21.0" prefWidth="109.0" text="Enter Password:" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-      <TextField fx:id="username_input" prefHeight="31.0" prefWidth="226.0" GridPane.columnIndex="2" GridPane.rowIndex="0" text="mikelin55"/>
-      <PasswordField fx:id="password_input" prefHeight="31.0" prefWidth="226.0" GridPane.columnIndex="2" GridPane.rowIndex="1" text="222222"/>
+      <TextField fx:id="username_input" prefHeight="31.0" prefWidth="226.0" GridPane.columnIndex="2" GridPane.rowIndex="0" text="admin"/>
+      <PasswordField fx:id="password_input" prefHeight="31.0" prefWidth="226.0" GridPane.columnIndex="2" GridPane.rowIndex="1" text="111111"/>
       <Button fx:id="btn_login" maxWidth="Infinity" mnemonicParsing="false" onAction="#pressLoginButton" text="Login" GridPane.columnIndex="1" GridPane.rowIndex="3" />
       <Button fx:id="btn_new" mnemonicParsing="false" onAction="#pressNewUserButton" text="New User? Click here!" GridPane.columnIndex="2" GridPane.rowIndex="3" />
    </children>

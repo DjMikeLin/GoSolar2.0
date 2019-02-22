@@ -18,7 +18,7 @@ public class User{
         this.userName = userName;
         this.password = password;
     }
-
+    //mainly a contructor to create a User of type admin
     public User(Integer id, String userName, String password, String userType){
         this.userName = userName;
         this.password = password;
@@ -37,9 +37,10 @@ public class User{
         this.userType = userType;
     }
 
-    public User(Integer id, String userName, String firstName, String lastName, String userType){
+    public User(Integer id, String userName, String password, String firstName, String lastName, String userType){
         this.id = id;
         this.userName = userName;
+        this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
         this.userType = userType;
