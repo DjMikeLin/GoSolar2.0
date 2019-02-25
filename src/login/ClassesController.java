@@ -1,7 +1,6 @@
 package login;
 
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -17,64 +16,66 @@ import java.util.List;
 public class ClassesController{
     private Student user;
     @FXML
-    private GridPane grid;
+    private GridPane grid, displayGrid;
     DBHandler dbHandler;
 
     public void initialize(){
         dbHandler = new DBHandler();
         List<Class> classes = dbHandler.getClasses();
         int currentCol = 0;
-        int currentRow = 1;
+        int gridRow = 1;
         //assuming all columns are NOT NULL
         for(Class aClass : classes){
+            GridPane classInfoPane = new GridPane();
+            classInfoPane.getStyleClass().add("userInfoGrid");
+            classInfoPane.getColumnConstraints().addAll(displayGrid.getColumnConstraints());
+
             Label label1 = new Label();
             label1.setText(aClass.getClassName());
             label1.setAccessibleText(aClass.getClassName());
-            grid.add(label1, currentCol++, currentRow);
+            classInfoPane.add(label1, currentCol++, 0);
 
             Label label2 = new Label();
             label2.setText(aClass.getSize().toString());
-            grid.add(label2, currentCol++, currentRow);
+            classInfoPane.add(label2, currentCol++, 0);
 
             Label label3 = new Label();
             label3.setText(aClass.getSpotsTaken().toString());
-            grid.add(label3, currentCol++, currentRow);
+            classInfoPane.add(label3, currentCol++, 0);
 
             Label label4 = new Label();
             label4.setText(aClass.getInstructor());
-            grid.add(label4, currentCol++, currentRow);
+            classInfoPane.add(label4, currentCol++, 0);
 
             Label label5 = new Label();
             label5.setText(aClass.getCRN());
-            grid.add(label5, currentCol++, currentRow);
+            classInfoPane.add(label5, currentCol++, 0);
 
             Label label6 = new Label();
             label6.setText(aClass.getDays());
-            grid.add(label6, currentCol++, currentRow);
+            classInfoPane.add(label6, currentCol++, 0);
 
             Label label7 = new Label();
-            label7.setText(aClass.getStartTime().militaryToRegularTime() + "-"
+            label7.setText(aClass.getStartTime().militaryToRegularTime() + " - "
                     + aClass.getEndTime().militaryToRegularTime());
-            grid.add(label7, currentCol++, currentRow);
+            classInfoPane.add(label7, currentCol++, 0);
 
             Label label8 = new Label();
             label8.setText(aClass.getSubject());
-            grid.add(label8, currentCol++, currentRow);
+            classInfoPane.add(label8, currentCol++, 0);
 
             Button addClass = new Button();
-            addClass.setMaxWidth(Double.MAX_VALUE);
             addClass.setText("Add Class");
-            grid.add(addClass, currentCol, currentRow);
-            addClass.setOnAction(new EventHandler<ActionEvent>() {
-                @Override public void handle(ActionEvent e){
-                    if(Class.addClassCheck(user, aClass, dbHandler))
-                        label3.setText(aClass.getSpotsTaken().toString());
+            classInfoPane.add(addClass, currentCol, 0);
+            addClass.setOnAction(event -> {
+                if(Class.addClassCheck(user, aClass, dbHandler))
+                    label3.setText(aClass.getSpotsTaken().toString());
 
-                    addClass.setDisable(true);
-                }
+                addClass.setDisable(true);
             });
+
+            grid.add(classInfoPane, 0, gridRow++);
             currentCol = 0;
-            currentRow++;
         }
     }
     //Changes stage to the previous stage

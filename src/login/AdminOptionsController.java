@@ -13,7 +13,7 @@ import java.io.IOException;
 public class AdminOptionsController{
     public void pressAddRemoveUser(ActionEvent event) throws IOException{
         Parent userOption = FXMLLoader.load(getClass().getResource("ViewUsers.fxml"));
-        Scene viewUsers = new Scene(userOption, 400, 800);
+        Scene viewUsers = new Scene(userOption, 435, 800);
         Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         app_stage.setScene(viewUsers);
         app_stage.centerOnScreen();
@@ -22,9 +22,9 @@ public class AdminOptionsController{
 
     public void pressAddRemoveClass(ActionEvent event) throws IOException{
         Parent userOption = FXMLLoader.load(getClass().getResource("ViewClasses.fxml"));
-        Scene viewClases = new Scene(userOption, 400, 800);
+        Scene viewClasses = new Scene(userOption);
         Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        app_stage.setScene(viewClases);
+        app_stage.setScene(viewClasses);
         app_stage.centerOnScreen();
         app_stage.show();
     }

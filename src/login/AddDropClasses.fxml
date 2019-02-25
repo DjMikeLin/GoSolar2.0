@@ -8,38 +8,38 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
 
+<?import java.net.URL?>
 <GridPane fx:id ="mainGrid" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="login.AddDropController" prefHeight="500" prefWidth="950">
     <columnConstraints>
         <ColumnConstraints />
     </columnConstraints>
-    <rowConstraints>
-        <RowConstraints/>
-        <RowConstraints/>
-    </rowConstraints>
 
     <children>
         <ScrollPane pannable="true" GridPane.rowIndex="0">
-            <GridPane fx:id="grid" style=" -fx-focus-color: -fx-control-inner-background; -fx-faint-focus-color: -fx-control-inner-background; " prefHeight="450" prefWidth="950">
+            <GridPane fx:id="grid" prefHeight="450" prefWidth="950">
                 <columnConstraints>
-                    <ColumnConstraints percentWidth="17" />
-                    <ColumnConstraints percentWidth="17" />
-                    <ColumnConstraints percentWidth="17" />
-                    <ColumnConstraints percentWidth="17" />
-                    <ColumnConstraints percentWidth="17" />
-                    <ColumnConstraints percentWidth="15" /><!-- This column for 'Remove Class' buttons ?-->
+                    <ColumnConstraints percentWidth="100" />
                 </columnConstraints>
-                <rowConstraints>
-                    <RowConstraints />
-                    <RowConstraints />
-                </rowConstraints>
-                <children>
-                    <Label maxHeight="Infinity" maxWidth="Infinity" style=" -fx-border-color:gray; " text="Class Name" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-                    <Label maxHeight="Infinity" maxWidth="Infinity" style=" -fx-border-color:gray; " text="Instructor" GridPane.columnIndex="1" GridPane.rowIndex="0" />
-                    <Label maxHeight="Infinity" maxWidth="Infinity" style=" -fx-border-color:gray; " text="CRN" GridPane.columnIndex="2" GridPane.rowIndex="0" />
-                    <Label maxHeight="Infinity" maxWidth="Infinity" style=" -fx-border-color:gray; " text="Days" GridPane.columnIndex="3" GridPane.rowIndex="0" />
-                    <Label maxHeight="Infinity" maxWidth="Infinity" style=" -fx-border-color:gray; " text="Time" GridPane.columnIndex="4" GridPane.rowIndex="0" />
-                    <Button maxHeight="Infinity" maxWidth="Infinity" mnemonicParsing="false" onAction="#pressBack" style=" -fx-background-color:red; -fx-border-color:black" text="Back..." GridPane.columnIndex="5" GridPane.rowIndex="0" />
-                </children>
+
+                <GridPane fx:id="displayGrid">
+                    <columnConstraints>
+                        <ColumnConstraints percentWidth="17" />
+                        <ColumnConstraints percentWidth="17" />
+                        <ColumnConstraints percentWidth="17" />
+                        <ColumnConstraints percentWidth="13" />
+                        <ColumnConstraints percentWidth="21" />
+                        <ColumnConstraints percentWidth="15" /><!-- This column for 'Remove Class' buttons ?-->
+                    </columnConstraints>
+
+                    <children>
+                        <Label styleClass="displayLabel" text="Class Name" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                        <Label styleClass="displayLabel" text="Instructor" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                        <Label styleClass="displayLabel" text="CRN" GridPane.columnIndex="2" GridPane.rowIndex="0" />
+                        <Label styleClass="displayLabel" text="Days" GridPane.columnIndex="3" GridPane.rowIndex="0" />
+                        <Label styleClass="displayLabel" text="Time" GridPane.columnIndex="4" GridPane.rowIndex="0" />
+                        <Button fx:id="backButton" onAction="#pressBack" text="Back" GridPane.columnIndex="5" GridPane.rowIndex="0" />
+                    </children>
+                </GridPane>
             </GridPane>
         </ScrollPane>
 
@@ -62,4 +62,8 @@
             </children>
         </GridPane>
     </children>
+
+    <stylesheets>
+        <URL value="@../StyleSheets/BasicStyles" />
+    </stylesheets>
 </GridPane>

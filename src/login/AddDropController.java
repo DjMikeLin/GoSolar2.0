@@ -22,7 +22,7 @@ import java.util.*;
 public class AddDropController{
     private Student user;
     @FXML
-    private GridPane grid;
+    private GridPane grid, displayGrid;
     @FXML
     private TextField CRN1, CRN2, CRN3;
     DBHandler dbHandler;
@@ -31,48 +31,50 @@ public class AddDropController{
         dbHandler = new DBHandler();
         HashSet<Class> classes = user.schedule().getClassesInSchedule();
         int currentCol = 0;
-        int currentRow = 1;
+        int gridRow = 1;
         //assuming all columns are NOT NULL
         for(Class aClass : classes){
+            GridPane classInfoPane = new GridPane();
+            classInfoPane.getStyleClass().add("userInfoGrid");
+            classInfoPane.getColumnConstraints().addAll(displayGrid.getColumnConstraints());
+
             Label label1 = new Label();
             label1.setText(aClass.getClassName());
             label1.setAccessibleText(aClass.getClassName());
-            grid.add(label1, currentCol++, currentRow);
+            classInfoPane.add(label1, currentCol++, 0);
 
             Label label2 = new Label();
             label2.setText(aClass.getInstructor());
-            grid.add(label2, currentCol++, currentRow);
+            classInfoPane.add(label2, currentCol++, 0);
 
             Label label3 = new Label();
             label3.setText(aClass.getCRN());
-            grid.add(label3, currentCol++, currentRow);
+            classInfoPane.add(label3, currentCol++, 0);
 
             Label label4 = new Label();
             label4.setText(aClass.getDays());
-            grid.add(label4, currentCol++, currentRow);
+            classInfoPane.add(label4, currentCol++, 0);
 
             Label label5 = new Label();
-            label5.setText(aClass.getStartTime().militaryToRegularTime() + "-"
+            label5.setText(aClass.getStartTime().militaryToRegularTime() + " - "
                     + aClass.getEndTime().militaryToRegularTime());
-            grid.add(label5, currentCol++, currentRow);
+            classInfoPane.add(label5, currentCol++, 0);
 
             Button removeClass = new Button();
-            removeClass.setMaxWidth(Double.MAX_VALUE);
             removeClass.setText("Remove Class");
-            grid.add(removeClass, currentCol, currentRow);
-            removeClass.setOnAction(new EventHandler<ActionEvent>() {
-                @Override public void handle(ActionEvent e){
-                    //update database
-                    dbHandler.removeClassFromUser(aClass.getId(), user.getId());
-                    //update schedule
-                    user.schedule().removeClassFromSchedule(aClass);
-                    //Updates spots taken for that class
-                    dbHandler.updateSpotsTaken(false, aClass.getId());
-                    removeClass.setDisable(true);
-                }
+            classInfoPane.add(removeClass, currentCol, 0);
+            removeClass.setOnAction(event -> {
+                //update database
+                dbHandler.removeClassFromUser(aClass.getId(), user.getId());
+                //update schedule
+                user.schedule().removeClassFromSchedule(aClass);
+                //Updates spots taken for that class
+                dbHandler.updateSpotsTaken(false, aClass.getId());
+                removeClass.setDisable(true);
             });
+
+            grid.add(classInfoPane, 0, gridRow++);
             currentCol = 0;
-            currentRow++;
         }
     }
     //Onclick for addClasses button. Attempts to add all the courses from CRN inputs into user schedule and update database

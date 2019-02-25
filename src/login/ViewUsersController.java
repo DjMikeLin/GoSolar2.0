@@ -2,7 +2,6 @@ package login;
 
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -12,6 +11,7 @@ import userGroups.User;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Random;
 
 public class ViewUsersController{
     @FXML
@@ -20,6 +20,8 @@ public class ViewUsersController{
     TextArea userName, password, firstName, lastName, email, cell, mailing;
     @FXML
     ComboBox userTypeComboBox;
+    @FXML
+    Button backButton;
 
     DBHandler dbHandler;
     InputValidation inputValidation;
@@ -50,7 +52,7 @@ public class ViewUsersController{
         inputValidation.validUserName(userName.getText().trim());
         inputValidation.validPassword(password.getText().trim());
 
-        if(userType.equals("Student")){
+        if(userType.equals("student")){
             inputValidation.validName(firstName.getText().trim());
             inputValidation.validName(lastName.getText().trim());
             inputValidation.validEmail(email.getText().trim());
@@ -59,7 +61,7 @@ public class ViewUsersController{
         }
 
         if(inputValidation.getAllErrorMessages().equals("")){
-            if(userType.equals("Student") && inputValidation.getAllErrorMessages().equals("")){
+            if(userType.equals("student") && inputValidation.getAllErrorMessages().equals("")){
                 User user = new User(
                         userName.getText().trim(),
                         password.getText().trim(),
@@ -73,8 +75,9 @@ public class ViewUsersController{
                 dbHandler.addUser(user);
                 addUserLabel(user);
             }
-            else if(userType.equals("Admin") && inputValidation.getAllErrorMessages().equals("")){
+            else if(userType.equals("admin") && inputValidation.getAllErrorMessages().equals("")){
                 User user = new User(userName.getText(), password.getText());
+                user.setUserType(userType);
                 dbHandler.addUser(user);
                 addUserLabel(user);
             }
@@ -90,20 +93,19 @@ public class ViewUsersController{
         Label label = new Label("User Type: " + user.getUserType() +
                 " Username: " + user.getUserName() +
                 " Name: " + user.getFullName());
+        label.setTooltip(new Tooltip("Right click for more options."));
+        label.getStyleClass().add("userInfoLabel");
         final ContextMenu menu = new ContextMenu();
         MenuItem removeUser = new MenuItem("Remove User");
         menu.getItems().addAll(removeUser);
-        removeUser.setOnAction(new EventHandler<ActionEvent>(){
-            @Override
-            public void handle(ActionEvent event){
-                if(user.getUserType().equals("Admin")){
-                    User.showAlert("Cannot delete the main system administrator.");
-                    return;
-                }
-
-                dbHandler.deleteUser(user);
-                label.setDisable(true);
+        removeUser.setOnAction(event -> {
+            if(user.getUserName().equals("admin")){
+                User.showAlert("Cannot delete the main system administrator.");
+                return;
             }
+
+            dbHandler.deleteUser(user);
+            label.setDisable(true);
         });
         label.setContextMenu(menu);
         grid.add(label, 0, rowIndex++);

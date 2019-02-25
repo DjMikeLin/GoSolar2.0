@@ -7,19 +7,20 @@
 <?import javafx.scene.layout.RowConstraints?>
 
 <?import javafx.scene.control.ComboBox?>
+<?import java.net.URL?>
 <GridPane prefHeight="500" prefWidth="500" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="login.ViewUsersController">
     <columnConstraints>
-        <ColumnConstraints />
+        <ColumnConstraints percentWidth="100"/>
     </columnConstraints>
     <rowConstraints>
         <RowConstraints percentHeight="68" />
         <RowConstraints percentHeight="32" />
     </rowConstraints>
     <children>
-      <GridPane fx:id="grid" GridPane.rowIndex="0" />
+      <GridPane fx:id="grid" GridPane.rowIndex="0"/>
       <GridPane GridPane.rowIndex="1">
           <columnConstraints>
-              <ColumnConstraints />
+              <ColumnConstraints percentWidth="100"/>
           </columnConstraints>
           <rowConstraints>
               <RowConstraints percentHeight="8" />
@@ -42,9 +43,9 @@
                 </columnConstraints>
 
                 <children>
-                    <Button maxHeight="Infinity" onAction="#pressAddUser" prefWidth="200" text="Add User" GridPane.columnIndex="0" />
-                    <ComboBox fx:id="userTypeComboBox" promptText="Pick a User Type" maxHeight="Infinity" prefWidth="200" GridPane.columnIndex="1"/>
-                    <Button maxHeight="Infinity" onAction="#pressBack" prefWidth="200" style=" -fx-background-color:red; -fx-border-color:black " text="Back" GridPane.columnIndex="2" />
+                    <Button onAction="#pressAddUser" text="Add User" GridPane.columnIndex="0" />
+                    <ComboBox fx:id="userTypeComboBox" promptText="User Type" maxHeight="Infinity" maxWidth="Infinity" GridPane.columnIndex="1"/>
+                    <Button fx:id="backButton" onAction="#pressBack" text="Back" GridPane.columnIndex="2" />
                 </children>
             </GridPane>
             <TextArea fx:id="userName" maxHeight="Infinity" maxWidth="Infinity" promptText="User Name" GridPane.rowIndex="1" />
@@ -57,4 +58,8 @@
          </children>
       </GridPane>
    </children>
+
+    <stylesheets>
+        <URL value="@../StyleSheets/BasicStyles" />
+    </stylesheets>
 </GridPane>

@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.URL?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<GridPane prefHeight="500" prefWidth="500" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="login.ViewClassesController">
+<GridPane prefWidth="525" prefHeight="800" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="login.ViewClassesController">
     <columnConstraints>
-        <ColumnConstraints />
+        <ColumnConstraints percentWidth="100" />
     </columnConstraints>
     <rowConstraints>
         <RowConstraints percentHeight="58" />
@@ -17,9 +18,7 @@
     <children>
         <GridPane fx:id="grid" GridPane.rowIndex="0" />
         <GridPane GridPane.rowIndex="1">
-            <columnConstraints>
-                <ColumnConstraints />
-            </columnConstraints>
+
             <rowConstraints>
                 <RowConstraints percentHeight="8" />
                 <RowConstraints percentHeight="11.5" />
@@ -33,17 +32,36 @@
             </rowConstraints>
 
             <children>
-                <Button maxHeight="Infinity" onAction="#pressAddClass" prefWidth="200" text="Add Course" GridPane.halignment="LEFT" GridPane.rowIndex="0" />
-                <Button maxHeight="Infinity" onAction="#pressBack" prefWidth="200" style=" -fx-background-color:red; -fx-border-color:black " text="Back" GridPane.halignment="RIGHT" GridPane.rowIndex="0" />
+                <GridPane GridPane.rowIndex="0">
+                    <columnConstraints>
+                        <ColumnConstraints percentWidth="50" />
+                        <ColumnConstraints percentWidth="50" />
+                    </columnConstraints>
+
+                    <children>
+                        <Button onAction="#pressAddClass" text="Add Course" GridPane.columnIndex="0" />
+                        <Button fx:id="backButton" onAction="#pressBack" text="Back" GridPane.columnIndex="1" />
+                    </children>
+               <rowConstraints>
+                  <RowConstraints />
+               </rowConstraints>
+                </GridPane>
                 <TextArea fx:id="className" maxHeight="Infinity" maxWidth="Infinity" promptText="Class Name" GridPane.rowIndex="1" />
                 <TextArea fx:id="size" maxHeight="Infinity" maxWidth="Infinity" promptText="Size of Class" GridPane.rowIndex="2" />
                 <TextArea fx:id="instructor" maxHeight="Infinity" maxWidth="Infinity" promptText="Instructor" GridPane.rowIndex="3" />
-                <TextArea fx:id="CRN" maxHeight="Infinity" maxWidth="Infinity" promptText="CRN" GridPane.rowIndex="4" />
+                <TextArea fx:id="CRN" maxHeight="Infinity" maxWidth="Infinity" prefHeight="37.0" prefWidth="525.0" promptText="CRN" GridPane.rowIndex="4" />
                 <TextArea fx:id="days" maxHeight="Infinity" maxWidth="Infinity" promptText="Day(s)" GridPane.rowIndex="5" />
-                <TextArea fx:id="startTime" maxHeight="Infinity" maxWidth="Infinity" promptText="Start Time(HH:MM regular time)" GridPane.rowIndex="6" />
-                <TextArea fx:id="endTime" maxHeight="Infinity" maxWidth="Infinity" promptText="End Time(HH:MM regular time)" GridPane.rowIndex="7" />
+                <TextArea fx:id="startTime" maxHeight="Infinity" maxWidth="Infinity" promptText="Start Time(HH:MM:SS Military Time)" GridPane.rowIndex="6" />
+                <TextArea fx:id="endTime" maxHeight="Infinity" maxWidth="Infinity" promptText="End Time(HH:MM:SS Military Time)" GridPane.rowIndex="7" />
                 <TextArea fx:id="subject" maxHeight="Infinity" maxWidth="Infinity" promptText="Subject" GridPane.rowIndex="8" />
             </children>
+         <columnConstraints>
+            <ColumnConstraints />
+         </columnConstraints>
         </GridPane>
     </children>
+
+    <stylesheets>
+        <URL value="@../StyleSheets/BasicStyles" />
+    </stylesheets>
 </GridPane>

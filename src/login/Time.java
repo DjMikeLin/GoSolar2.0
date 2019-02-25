@@ -49,8 +49,8 @@ public class Time{
 
         if(hour > 12){
             hour = hour - 12;
-            return "0" + hour + ":" + getMins() + ":" + getSecs()+ " pm";
+            return "0" + hour + ":" + getMins() + ":" + getSecs()+ "pm";
         }
-        return this.time + " am";
+        return this.time + "am";
     }
 }

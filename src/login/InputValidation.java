@@ -1,10 +1,83 @@
 package login;
 
+import java.util.regex.Pattern;
+
 public class InputValidation{
     private StringBuffer allErrorMessages;
 
     public InputValidation(){
         allErrorMessages = new StringBuffer();
+    }
+    //Checks every parameter to see if they are valid. If not appends error to allErrorMessages
+    public void validateClass(String className, String size, String instructor, String CRN, String days, String startTime, String endTime, String subject){
+        validClassName(className);
+        validSize(size);
+        validInstructorName(instructor);
+        validCRN(CRN);
+        validDays(days);
+        validTimes(startTime, endTime);
+        validSubject(subject);
+    }
+    //Returns a boolean whether className is valid based on regex
+    public boolean validClassName(String className){
+        if(!Pattern.matches("^[A-Z]{3}\\d{4}", className)) {
+            allErrorMessages.append("Class Name not in the form of 3 capital letters followed by 4 digits!\n");
+            return false;
+        }
+        return true;
+    }
+    //Returns a boolean whether size and spotsTaken contain only digits and is (size < 300) and is (spotstaken > size)
+    public boolean validSize(String size){
+        if(!Pattern.matches("[0-9]+", size) || Integer.parseInt(size) > 300){
+            allErrorMessages.append("Class size has invalid characters OR class size is greater then 300\n");
+        }
+        return true;
+    }
+    //Returns a boolean whether instructor name is valid. Breaks it up into first and last name.
+    public boolean validInstructorName(String instructor){
+        String[] arr = instructor.split(" ");
+        if(arr.length < 2){
+            allErrorMessages.append("Instructor has only one name! Instructor should have a first name and last name separated by a space character\n");
+            return false;
+        }
+
+        if(validName(arr[0]) && validName(arr[1]))
+            return true;
+
+        return false;
+    }
+    //Returns a boolean whether CRN is a String that only contains 5 digits
+    public boolean validCRN(String CRN){
+        if(!Pattern.matches("[0-9]{5}", CRN)) {
+            allErrorMessages.append("CRN should only be 5 digits!\n");
+            return false;
+        }
+        return true;
+    }
+    //Returns a boolean whether days is a String that only contains 'M', 'T', 'W', 'R', and 'F' chars
+    public boolean validDays(String days){
+        if(!Pattern.matches("([M]?[T]?[W]?[R]?[F]?)+", days)){
+            allErrorMessages.append("Days should only be 'M', 'T', 'W', 'R', and 'F'!\n");
+            return false;
+        }
+        return true;
+    }
+    //Returns a boolean whether startTime and endTime are in military time format(HH:MM:SS)
+    public boolean validTimes(String startTime, String endTime){
+        if(!Pattern.matches("^(?:[01]\\d|2[0-3]){1}(?::?[0-5]\\d){1}(?::?[0-5]\\d){1}", startTime) ||
+                !Pattern.matches("^(?:[01]\\d|2[0-3]){1}(?::?[0-5]\\d){1}(?::?[0-5]\\d){1}", endTime)){
+            allErrorMessages.append("Start time and/or end time in wrong format!\n");
+            return false;
+        }
+        return true;
+    }
+    //Returns a boolean wheter subject is in the right form. Letters and spaces only.
+    public boolean validSubject(String subject){
+        if(!Pattern.matches("[A-Za-z' ']+", subject)){
+            allErrorMessages.append("Subject in wrong form! Letters and spaces only.\n");
+            return false;
+        }
+        return true;
     }
     //Returns false if userName has a invalid char or it's length is not correct. True otherwise.
     //Lowercase letters and numbers only

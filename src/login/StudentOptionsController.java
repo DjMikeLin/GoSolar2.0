@@ -39,6 +39,7 @@ public class StudentOptionsController{
         Scene classesToAddScene = new Scene(userOption);
         Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         app_stage.setScene(classesToAddScene);
+        app_stage.centerOnScreen();
         app_stage.show();
     }
 

@@ -6,7 +6,8 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<GridPane prefHeight="400.0" prefWidth="365.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="login.AdminOptionsController">
+<?import java.net.URL?>
+<GridPane xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="login.AdminOptionsController">
     <columnConstraints>
         <ColumnConstraints />
     </columnConstraints>
@@ -20,10 +21,14 @@
     </rowConstraints>
     <children>
         <Label prefHeight="21.0" prefWidth="355.0" text="Choose an option..." />
-        <Button contentDisplay="CENTER" mnemonicParsing="false" onAction="#pressAddRemoveUser" prefHeight="31.0" prefWidth="355.0" text="Add/Remove User" GridPane.rowIndex="1" />
-        <Button mnemonicParsing="false" onAction="#pressAddRemoveClass" prefHeight="31.0" prefWidth="355.0" text="Add/Drop Courses" GridPane.rowIndex="2" />
-        <Button mnemonicParsing="false" prefHeight="31.0" prefWidth="356.0" text="Registration Agreement" GridPane.rowIndex="3" />
-        <Button mnemonicParsing="false" onAction="#pressLogOff" prefHeight="31.0" prefWidth="356.0" text="Logout" GridPane.rowIndex="4" />
-        <Button mnemonicParsing="false" onAction="#pressExit" prefHeight="31.0" prefWidth="356.0" text="Exit" GridPane.rowIndex="5" />
+        <Button contentDisplay="CENTER" onAction="#pressAddRemoveUser" prefHeight="31.0" prefWidth="355.0" text="Add/Remove User" GridPane.rowIndex="1" />
+        <Button onAction="#pressAddRemoveClass" text="Add/Drop Courses" GridPane.rowIndex="2" />
+        <Button text="Registration Agreement" GridPane.rowIndex="3" />
+        <Button onAction="#pressLogOff" text="Logout" GridPane.rowIndex="4" />
+        <Button onAction="#pressExit" text="Exit" GridPane.rowIndex="5" />
     </children>
+
+    <stylesheets>
+        <URL value="@../StyleSheets/BasicStyles" />
+    </stylesheets>
 </GridPane>

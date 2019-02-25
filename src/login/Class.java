@@ -32,6 +32,17 @@ public class Class{
         this.startTime = startTime;
         this.endTime = endTime;
     }
+
+    public Class(String className, int size, String instructor, String CRN, String days, String startTime, String endTime, String subject){
+        this.className = className;
+        this.size = size;
+        this.instructor = instructor;
+        this.CRN = CRN;
+        this.days = days;
+        this.startTime = new Time(startTime);
+        this.endTime = new Time(endTime);
+        this.subject = subject;
+    }
     //returns number equivalent to a day char. Assuming parameter can only be :
     //M(Monday), T(Tuesday), W(Wednesday), R(Thursday), F(Friday) chars
     public int getNumEquivalent(char day){

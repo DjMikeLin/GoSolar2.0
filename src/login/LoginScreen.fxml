@@ -9,7 +9,8 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<GridPane alignment="center" hgap="10" prefHeight="275" prefWidth="350" vgap="10" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="login.LoginController">
+<?import java.net.URL?>
+<GridPane fx:id="loginScreenGrid" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="login.LoginController">
    <columnConstraints>
       <ColumnConstraints />
       <ColumnConstraints maxWidth="195.0" minWidth="109.0" prefWidth="110.0" />
@@ -18,15 +19,15 @@
       <ColumnConstraints />
    </columnConstraints>
    <padding>
-      <Insets left="10.0" right="10.0" />
+      <Insets left="10.0" right="10.0" top = "10.0"/>
    </padding>
    <children>
       <Label prefHeight="21.0" prefWidth="201.0" text="Enter Username:" wrapText="true" GridPane.columnIndex="1" />
       <Label prefHeight="21.0" prefWidth="109.0" text="Enter Password:" GridPane.columnIndex="1" GridPane.rowIndex="1" />
       <TextField fx:id="username_input" prefHeight="31.0" prefWidth="226.0" GridPane.columnIndex="2" GridPane.rowIndex="0" text="admin"/>
       <PasswordField fx:id="password_input" prefHeight="31.0" prefWidth="226.0" GridPane.columnIndex="2" GridPane.rowIndex="1" text="111111"/>
-      <Button fx:id="btn_login" maxWidth="Infinity" mnemonicParsing="false" onAction="#pressLoginButton" text="Login" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-      <Button fx:id="btn_new" mnemonicParsing="false" onAction="#pressNewUserButton" text="New User? Click here!" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+      <Button fx:id="btn_login" maxWidth="Infinity" onAction="#pressLoginButton" text="Login" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+      <Button fx:id="btn_new" onAction="#pressNewUserButton" text="New User? Click here!" GridPane.columnIndex="2" GridPane.rowIndex="2" />
    </children>
    <rowConstraints>
       <RowConstraints />
@@ -34,4 +35,8 @@
       <RowConstraints />
       <RowConstraints />
    </rowConstraints>
+
+   <stylesheets>
+      <URL value="@../StyleSheets/BasicStyles" />
+   </stylesheets>
 </GridPane>
