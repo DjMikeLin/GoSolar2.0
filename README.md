@@ -15,7 +15,7 @@ https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.
 -double click on the .jar to test the application(database must be in the same directory)
     --Double clicking jar files might not work in windows 10. If it doesn't try using this 3rd party website to load the app:
     https://download.cnet.com/JAR_Runner/3000-2094_4-76475806.html
---Or download the code to test and run in your IDE.
+--Or download the code to test and run in your IDE. Before running the code, please setup a sqlite-jdbc jar dependency. Download the jar file from https://bitbucket.org/xerial/sqlite-jdbc/downloads/
 
 ## Logins
 ### Two users are built in to the database now:
@@ -24,3 +24,6 @@ https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.
 
 ## Addtional Information
 For design documents and user manuals please check out TeamAwesome.pdf.
+
+## Credit
+I do not own any pictures that might appear in this application. All rights belong to original owners. 
